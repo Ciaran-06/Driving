@@ -1,5 +1,10 @@
-import * as three from 'three'
+//import * as three from './build/three.module.js';
+//import { OrbitControls } from './jsm/controls/OrbitControls.js';
 import { OrbitControls } from 'https://rawgit.com/mrdoob/three.js/dev/examples/jsm/controls/OrbitControls.js';
+import { FirstPersonControls } from 'https://rawgit.com/mrdoob/three.js/dev/examples/jsm/controls/FirstPersonControls.js';
+import { VertexColors } from 'three';
+import { Vertex } from 'three';
+
 
 // semi-constant
 var UNITSIZE = 250;
@@ -8,8 +13,6 @@ var units = mapW;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-
-const controls = new OrbitControls(camera, renderer.domElement);
 
 const loader = new THREE.TextureLoader();
 var bgTexture = loader.load("./textures/background.jpg");
@@ -20,6 +23,8 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+const controls = new OrbitControls(camera, renderer.domElement);
+
 /*const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
@@ -27,8 +32,21 @@ scene.add(cube);*/
 
 
 const flor = new THREE.BoxGeometry(1, 12, 1);
-const fMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+const fMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, vertexColors: THREE.FaceColors });
 const floor = new THREE.Mesh(flor, fMaterial);
+
+var color, face, numberOfSides, vertexIndex;
+
+var faceIndices = ['a', 'b', 'c', 'd'];
+
+for (var j = 0; j < numberOfSides; j++) {
+    vertexIndex = face[faceIndices[j]];
+    // initialize color variable
+    color = new THREE.Color(0xffffff);
+    color.setHex(Math.random() * 0xffffff);
+    face.vertexColors[j] = color;
+}
+
 
 scene.add(floor);
 
@@ -62,8 +80,8 @@ camera.rotation.x = -0.1;
 function animate() {
     requestAnimationFrame(animate);
 
-    floor.rotation.x += 0.01;
-    floor.rotation.y += 0.01;
+    //floor.rotation.x += 0.01;
+    // floor.rotation.y += 0.01;
 
     render();
 };
