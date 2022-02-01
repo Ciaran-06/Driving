@@ -1,0 +1,21 @@
+html,
+body {
+    height: 100%;
+}
+
+.load {
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.load button {
+    justify-self: center;
+}
+
+button {
+    width: 370px;
+}
